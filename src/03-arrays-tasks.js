@@ -21,14 +21,7 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 function findElement(arr, value) {
-  let result = -1;
-  arr.find((item, index) => {
-    if (item === value) {
-      result = index;
-    }
-    return item === value;
-  });
-  return result;
+  return arr.indexOf(value);
 }
 
 /**
@@ -241,8 +234,9 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(/* arr */) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  const result1 = arr.map((array) => array.join(','));
+  return result1.join('\n');
 }
 
 /**
@@ -275,8 +269,14 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  const result = [];
+  arr.reduce((sum, item) => {
+    const summa = sum + item;
+    result.push(summa);
+    return summa;
+  }, 0);
+  return result;
 }
 
 /**
@@ -290,8 +290,15 @@ function getMovingSum(/* arr */) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-function getSecondItems(/* arr */) {
-  throw new Error('Not implemented');
+function getSecondItems(arr) {
+  const result = [];
+  arr.map((item, index) => {
+    if (index % 2 === 1) {
+      result.push(item);
+    }
+    return item;
+  });
+  return result;
 }
 
 
@@ -309,8 +316,14 @@ function getSecondItems(/* arr */) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const result = [];
+  arr.map((item, index) => {
+    const element = new Array(index + 1).fill(item);
+    result.push(element);
+    return item;
+  });
+  return result.flat();
 }
 
 
