@@ -225,8 +225,18 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const first = Math.min(a, b);
+  const second = Math.max(a, b);
+  let firstSymbol = '(';
+  let lastSymbol = ')';
+  if (isStartIncluded) {
+    firstSymbol = '[';
+  }
+  if (isEndIncluded) {
+    lastSymbol = ']';
+  }
+  return `${firstSymbol}${first}, ${second}${lastSymbol}`;
 }
 
 
@@ -242,8 +252,12 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let result = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    result += str[i];
+  }
+  return result;
 }
 
 
@@ -259,8 +273,13 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const str = num.toString();
+  let result = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    result += str[i];
+  }
+  return Number(result);
 }
 
 
@@ -284,8 +303,28 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const string = ccn.toString();
+  const control = Number(string.at(-1));
+  const meaningPart = string.slice(0, -1);
+  let result = 0;
+  for (let i = -1; Math.abs(i) <= meaningPart.length; i -= 1) {
+    let nextNumber;
+    if (Math.abs(i) % 2 === 1) {
+      nextNumber = meaningPart.at(i) * 2;
+      if (nextNumber > 9) {
+        nextNumber = Number(nextNumber.toString()[0]) + Number(nextNumber.toString()[1]);
+      }
+    } else {
+      nextNumber = meaningPart.at(i) * 1;
+    }
+    result += nextNumber;
+  }
+  result %= 10;
+  if (result !== 0) {
+    result = 10 - result;
+  }
+  return result === control;
 }
 
 /**
