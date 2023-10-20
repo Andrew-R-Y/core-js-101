@@ -524,8 +524,66 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  let result;
+  function checkAllDirections(matrix, value) {
+    const diag1 = [];
+    const diag2 = [];
+    const row1 = [];
+    const row2 = [];
+    const row3 = [];
+    const column1 = [];
+    const column2 = [];
+    const column3 = [];
+    const control = value.repeat(3);
+    const results = [];
+    for (let i = 0; i < 3; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
+        if (i === j) {
+          diag1.push(matrix[i][j]);
+        }
+        if (i + j === 2) {
+          diag2.push(matrix[i][j]);
+        }
+        if (i === 0) {
+          row1.push(matrix[i][j]);
+        }
+        if (i === 1) {
+          row2.push(matrix[i][j]);
+        }
+        if (i === 2) {
+          row3.push(matrix[i][j]);
+        }
+        if (j === 0) {
+          column1.push(matrix[i][j]);
+        }
+        if (j === 1) {
+          column2.push(matrix[i][j]);
+        }
+        if (j === 2) {
+          column3.push(matrix[i][j]);
+        }
+      }
+    }
+    results.push(diag1);
+    results.push(diag2);
+    results.push(row1);
+    results.push(row2);
+    results.push(row3);
+    results.push(column1);
+    results.push(column2);
+    results.push(column3);
+    return results.find((item) => item.join('') === control);
+  }
+
+  if (checkAllDirections(position, 'X')) {
+    result = 'X';
+  }
+
+  if (checkAllDirections(position, '0')) {
+    result = '0';
+  }
+  return result;
 }
 
 
